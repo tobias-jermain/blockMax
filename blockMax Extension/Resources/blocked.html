@@ -17,13 +17,50 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
             background: #f5f5f7;
             color: #1d1d1f;
+            position: relative;
+            overflow: hidden;
         }
 
         @media (prefers-color-scheme: dark) {
-            body { background: #1c1c1e; color: #f5f5f7; }
+            body {
+                background: #1c1c1e;
+                color: #f5f5f7;
+            }
+        }
+
+        /* Architectural Glass Frit Grid */
+        .frit-container {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            width: 400px;
+            height: 400px;
+            pointer-events: none;
+            z-index: 0;
+            /* Mask handles the smooth fading out of the grid */
+            mask-image: radial-gradient(circle at bottom right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 80%);
+            -webkit-mask-image: radial-gradient(circle at bottom right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 80%);
+        }
+
+        .frit-grid {
+            width: 100%;
+            height: 100%;
+        }
+
+        .frit-dot {
+            fill: url(#frit-gradient);
+            opacity: 0.15;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .frit-dot {
+                opacity: 0.25;
+            }
         }
 
         .card {
+            position: relative;
+            z-index: 1;
             text-align: center;
             max-width: 380px;
             padding: 56px 40px;
@@ -50,7 +87,9 @@
         }
 
         @media (prefers-color-scheme: dark) {
-            p { color: #98989d; }
+            p {
+                color: #98989d;
+            }
         }
 
         .divider {
@@ -74,6 +113,26 @@
     </style>
 </head>
 <body>
+
+    <div class="frit-container" aria-hidden="true">
+        <svg class="frit-grid" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="frit-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FFBADA" />
+                    <stop offset="100%" stop-color="#FF6BAF" />
+                </linearGradient>
+                
+                <pattern id="frit-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <circle class="frit-dot" cx="5" cy="5" r="1.5" />
+                    <circle class="frit-dot" cx="15" cy="15" r="2.5" />
+                    <circle class="frit-dot" cx="25" cy="25" r="3.5" />
+                    <circle class="frit-dot" cx="35" cy="35" r="4.5" />
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#frit-pattern)" />
+        </svg>
+    </div>
+
     <div class="card">
         <img src="images/toolbar-icon-active.svg" class="shield" alt="blockMax">
         <h1>Stay focused.</h1>
@@ -81,6 +140,7 @@
         <div class="divider"></div>
         <p id="focus-message" class="hint">You've got this. Come back later.</p>
     </div>
+
     <script src="blocked.js" defer></script>
 </body>
 </html>
