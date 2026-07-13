@@ -7,6 +7,12 @@ const DEFAULT_SCHEDULE = {
     endTime: '17:00'
 };
 
+const DEFAULT_MESSAGES = [
+    "You've got this. Come back later.",
+    "Stay focused. This can wait.",
+    "Deep work mode. You're doing great."
+];
+
 async function getSettings() {
     const result = await browser.storage.local.get(['blockedSites', 'schedule']);
     return {
@@ -37,12 +43,21 @@ async function sync() {
     });
 }
 
-browser.runtime.onInstalled.addListener(() => {
+async function ensureMessages() {
+    const { blockedMessages } = await browser.storage.local.get('blockedMessages');
+    if (!blockedMessages || blockedMessages.length === 0) {
+        await browser.storage.local.set({ blockedMessages: DEFAULT_MESSAGES });
+    }
+}
+
+browser.runtime.onInstalled.addListener(async () => {
+    await ensureMessages();
     sync();
     browser.alarms.create(ALARM, { periodInMinutes: 1 });
 });
 
 browser.runtime.onStartup.addListener(async () => {
+    await ensureMessages();
     sync();
     const alarm = await browser.alarms.get(ALARM);
     if (!alarm) browser.alarms.create(ALARM, { periodInMinutes: 1 });
@@ -52,7 +67,10 @@ browser.alarms.onAlarm.addListener(alarm => {
     if (alarm.name === ALARM) sync();
 });
 
-browser.storage.onChanged.addListener(sync);
+// Only react to user-facing keys — prevents a loop if sync() ever writes to storage.
+browser.storage.onChanged.addListener((changes) => {
+    if ('blockedSites' in changes || 'schedule' in changes) sync();
+});
 
 browser.runtime.onMessage.addListener((msg, sender, respond) => {
     if (msg.type === 'getStatus') {

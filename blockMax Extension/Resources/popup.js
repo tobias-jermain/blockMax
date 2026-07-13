@@ -9,6 +9,7 @@ async function init() {
     renderStatus(status.active);
     renderSites();
     renderSchedule();
+    await initMessages();
 
     document.getElementById('addBtn').addEventListener('click', addSite);
     document.getElementById('siteInput').addEventListener('keydown', e => {
@@ -119,6 +120,23 @@ function addSite() {
 
 async function persist() {
     await browser.storage.local.set({ blockedSites: sites, schedule });
+}
+
+async function initMessages() {
+    const { blockedMessages = [] } = await browser.storage.local.get('blockedMessages');
+    [0, 1, 2].forEach(i => {
+        document.getElementById(`msg${i}`).value = blockedMessages[i] ?? '';
+    });
+
+    document.getElementById('saveMsgsBtn').addEventListener('click', async () => {
+        const messages = [0, 1, 2]
+            .map(i => document.getElementById(`msg${i}`).value.trim())
+            .filter(Boolean);
+        await browser.storage.local.set({ blockedMessages: messages.length ? messages : undefined });
+        const confirm = document.getElementById('msgConfirm');
+        confirm.textContent = 'Saved ✓';
+        setTimeout(() => { confirm.textContent = ''; }, 2000);
+    });
 }
 
 init();

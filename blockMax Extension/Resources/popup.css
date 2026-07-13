@@ -302,3 +302,63 @@ h2 {
     opacity: 0.4;
     pointer-events: none;
 }
+
+/* ── Block Messages ── */
+.section-hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: -4px;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.message-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 8px;
+}
+
+.message-input {
+    width: 100%;
+    padding: 7px 9px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.message-input:focus {
+    border-color: var(--accent);
+}
+
+.msg-save-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.msg-save-row button {
+    padding: 6px 12px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.msg-save-row button:hover {
+    opacity: 0.9;
+}
+
+.msg-confirm {
+    font-size: 12px;
+    color: #15803d;
+    font-weight: 500;
+}
