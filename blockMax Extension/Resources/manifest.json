@@ -21,13 +21,17 @@
 
     "content_scripts": [{
         "js": [ "content.js" ],
-        "matches": [ "*://example.com/*" ]
+        "matches": [ "<all_urls>" ],
+        "run_at": "document_start"
     }],
 
     "action": {
         "default_popup": "popup.html",
-        "default_icon": "images/toolbar-icon.svg"
+        "default_icon": "images/toolbar-icon-inactive.svg"
     },
 
-    "permissions": [ ]
+    "permissions": [
+        "storage",
+        "alarms"
+    ]
 }

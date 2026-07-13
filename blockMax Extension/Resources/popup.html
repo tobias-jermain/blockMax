@@ -1,11 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="popup.css">
-    <script type="module" src="popup.js"></script>
 </head>
 <body>
-    <strong>Hello World!</strong>
+    <header>
+        <div class="brand">
+            <img src="images/toolbar-icon-active.svg" class="logo" alt="">
+            <span>blockMax</span>
+        </div>
+        <div class="status-pill" id="statusPill">Loading…</div>
+    </header>
+
+    <section>
+        <h2>Blocked Sites</h2>
+        <ul id="siteList" class="site-list"></ul>
+        <div class="add-row">
+            <input type="text" id="siteInput" placeholder="twitter.com" autocomplete="off" spellcheck="false">
+            <button id="addBtn">Add</button>
+        </div>
+    </section>
+
+    <section>
+        <h2>Schedule</h2>
+        <label class="toggle-row">
+            <span>Enable schedule</span>
+            <span class="toggle-wrap">
+                <input type="checkbox" id="scheduleEnabled">
+                <span class="toggle"></span>
+            </span>
+        </label>
+        <div id="scheduleDetails">
+            <div class="days-row">
+                <label class="day-label"><input type="checkbox" value="1"><span>M</span></label>
+                <label class="day-label"><input type="checkbox" value="2"><span>T</span></label>
+                <label class="day-label"><input type="checkbox" value="3"><span>W</span></label>
+                <label class="day-label"><input type="checkbox" value="4"><span>T</span></label>
+                <label class="day-label"><input type="checkbox" value="5"><span>F</span></label>
+                <label class="day-label"><input type="checkbox" value="6"><span>S</span></label>
+                <label class="day-label"><input type="checkbox" value="0"><span>S</span></label>
+            </div>
+            <div class="time-row">
+                <input type="time" id="startTime">
+                <span>to</span>
+                <input type="time" id="endTime">
+            </div>
+        </div>
+    </section>
+
+    <script src="popup.js" defer></script>
 </body>
 </html>
