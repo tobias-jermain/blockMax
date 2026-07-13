@@ -1,4 +1,4 @@
-# blockMAx
+# blockMax
 
 Open-source, bloat-free and fast tool for Safari. Focus by blocking websites within certain times.
 
