@@ -10,7 +10,8 @@
     --border: #e5e5e7;
     --text: #1d1d1f;
     --text-muted: #6e6e73;
-    --accent: #2563eb;
+    --accent: #FF6BAF;
+    --accent-gradient: linear-gradient(135deg, #FFBADA, #FF6BAF);
     --active-bg: #dcfce7;
     --active-text: #15803d;
     --danger: #dc2626;
@@ -166,7 +167,7 @@ h2 {
 
 .add-row button {
     padding: 7px 12px;
-    background: var(--accent);
+    background: var(--accent-gradient);
     color: white;
     border: none;
     border-radius: 7px;
@@ -224,7 +225,7 @@ h2 {
 }
 
 .toggle-wrap input:checked + .toggle {
-    background: var(--accent);
+    background: var(--accent-gradient);
 }
 
 .toggle-wrap input:checked + .toggle::after {
@@ -265,7 +266,7 @@ h2 {
 }
 
 .day-label input:checked + span {
-    background: var(--accent);
+    background: var(--accent-gradient);
     color: white;
 }
 
@@ -344,7 +345,7 @@ h2 {
 
 .msg-save-row button {
     padding: 6px 12px;
-    background: var(--accent);
+    background: var(--accent-gradient);
     color: white;
     border: none;
     border-radius: 7px;
